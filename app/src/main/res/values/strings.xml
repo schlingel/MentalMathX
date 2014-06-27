@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MentalMathX</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="btnNewGame">Neues Spiel</string>
+    <string name="btnHighScore">High Scores</string>
+    <string name="btnEasy">Leicht</string>
+    <string name="btnMedium">Mittel</string>
+    <string name="btnHard">Schwer</string>
+
+</resources>

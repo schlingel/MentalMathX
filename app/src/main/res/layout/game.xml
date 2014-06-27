@@ -8,8 +8,34 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".NewGameActivity">
 
+    <RelativeLayout
+        android:id="@+id/llStatus"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtVwCorrect"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txtVwWrongGuesses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/txtVwCorrect" />
+
+        <TextView
+            android:id="@+id/txtVwTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/txtVwExercise"
+        android:layout_below="@id/llStatus"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="30dp"

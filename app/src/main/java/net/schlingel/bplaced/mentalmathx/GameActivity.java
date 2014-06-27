@@ -10,7 +10,6 @@ import android.widget.TextView;
 import net.schlingel.bplaced.mentalmathx.controller.GameController;
 import net.schlingel.bplaced.mentalmathx.controller.impl.GameControllerImpl;
 import net.schlingel.bplaced.mentalmathx.game.Difficulty;
-import net.schlingel.bplaced.mentalmathx.net.schlingel.bplaced.mentalmathx.math.Calculations;
 import net.schlingel.bplaced.mentalmathx.view.GameView;
 
 import org.androidannotations.annotations.AfterViews;

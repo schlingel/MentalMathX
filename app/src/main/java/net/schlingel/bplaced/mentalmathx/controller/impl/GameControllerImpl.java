@@ -2,8 +2,8 @@ package net.schlingel.bplaced.mentalmathx.controller.impl;
 
 import net.schlingel.bplaced.mentalmathx.controller.GameController;
 import net.schlingel.bplaced.mentalmathx.game.Difficulty;
-import net.schlingel.bplaced.mentalmathx.net.schlingel.bplaced.mentalmathx.math.Calculations;
-import net.schlingel.bplaced.mentalmathx.net.schlingel.bplaced.mentalmathx.math.Term;
+import net.schlingel.bplaced.mentalmathx.math.Calculations;
+import net.schlingel.bplaced.mentalmathx.math.Term;
 import net.schlingel.bplaced.mentalmathx.view.GameView;
 
 /**

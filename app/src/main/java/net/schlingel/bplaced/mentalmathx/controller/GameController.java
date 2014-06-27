@@ -1,6 +1,6 @@
 package net.schlingel.bplaced.mentalmathx.controller;
 
-import net.schlingel.bplaced.mentalmathx.net.schlingel.bplaced.mentalmathx.math.Term;
+import net.schlingel.bplaced.mentalmathx.math.Term;
 
 /**
  * Created by zombie on 27.06.14.

@@ -1,4 +1,4 @@
-package net.schlingel.bplaced.mentalmathx.net.schlingel.bplaced.mentalmathx.math;
+package net.schlingel.bplaced.mentalmathx.math;
 
 import net.schlingel.bplaced.mentalmathx.game.Difficulty;
 

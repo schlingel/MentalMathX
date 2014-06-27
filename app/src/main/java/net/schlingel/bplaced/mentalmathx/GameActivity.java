@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import net.schlingel.bplaced.metalmathx.game.Difficulty;
+import net.schlingel.bplaced.mentalmathx.game.Difficulty;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Fullscreen;

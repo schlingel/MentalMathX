@@ -1,4 +1,4 @@
-package net.schlingel.bplaced.metalmathx.game;
+package net.schlingel.bplaced.mentalmathx.game;
 
 import java.io.Serializable;
 

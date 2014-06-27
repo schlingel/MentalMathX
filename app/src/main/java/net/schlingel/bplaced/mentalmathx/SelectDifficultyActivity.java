@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 
-import net.schlingel.bplaced.metalmathx.game.Difficulty;
+import net.schlingel.bplaced.mentalmathx.game.Difficulty;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;

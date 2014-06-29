@@ -68,16 +68,38 @@ public class GameActivity extends Activity implements GameView, View.OnClickList
 
     @Override
     public void updateStats(long runningTimeInSec, int correctCalcs, int wrongGuesses) {
-        String correct = String.format("✓ × %d", correctCalcs);
-        String wrong = String.format("✗ × %d", wrongGuesses);
+        final String correct = String.format("✓ × %d", correctCalcs);
+        final String wrong = String.format("✗ × %d", wrongGuesses);
+        final String timeLabel = timeLabel(runningTimeInSec);
 
-        txtVwCorrectGuesses.setText(correct);
-        txtVwWrongGuesses.setText(wrong);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txtVwCorrectGuesses.setText(correct);
+                txtVwWrongGuesses.setText(wrong);
+                txtTime.setText(timeLabel);
+            }
+        });
+    }
+
+    private String timeLabel(long timeInSec) {
+        long seconds = timeInSec % 60;
+        long minutes = (timeInSec / 60) % 60;
+        long hours = timeInSec / 3600;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
     @Override
     public void updateExercise(String exerciseTerm) {
-        txtVwExercise.setText(exerciseTerm);
+        final String termLabel = exerciseTerm;
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txtVwExercise.setText(termLabel);
+            }
+        });
     }
 
     @Override
@@ -96,5 +118,12 @@ public class GameActivity extends Activity implements GameView, View.OnClickList
         int figure = Integer.parseInt(sFigure);
 
         controller.onFigureInput(figure);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        controller.pause();
     }
 }

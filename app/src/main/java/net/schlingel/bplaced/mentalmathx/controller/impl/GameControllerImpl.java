@@ -1,10 +1,14 @@
 package net.schlingel.bplaced.mentalmathx.controller.impl;
 
 import net.schlingel.bplaced.mentalmathx.controller.GameController;
+import net.schlingel.bplaced.mentalmathx.game.GameLogic;
 import net.schlingel.bplaced.mentalmathx.game.Difficulty;
 import net.schlingel.bplaced.mentalmathx.game.ExerciseStrategy;
-import net.schlingel.bplaced.mentalmathx.game.ExerciseStrategyFactory;
-import net.schlingel.bplaced.mentalmathx.math.Calculations;
+import net.schlingel.bplaced.mentalmathx.game.HoundredRoundsGameLogic;
+import net.schlingel.bplaced.mentalmathx.game.InfiniteGameLogic;
+import net.schlingel.bplaced.mentalmathx.game.Mode;
+import net.schlingel.bplaced.mentalmathx.game.TenExercisesGameLogic;
+import net.schlingel.bplaced.mentalmathx.game.TenRoundsGameLogic;
 import net.schlingel.bplaced.mentalmathx.math.Term;
 import net.schlingel.bplaced.mentalmathx.view.GameView;
 
@@ -51,19 +55,34 @@ public class GameControllerImpl implements GameController {
 
     private int correctGuesses;
     private int wrongGuesses;
-    private ExerciseStrategy strategy;
+    private ExerciseStrategy exerciseFactory;
     private Term currentExercise;
     private String currentInput;
     private GameView view;
     private Ticker ticker;
     private long timeInSeconds;
+    private GameLogic gameLogic;
 
-    public GameControllerImpl(Difficulty difficulty, GameView view) {
-        this.strategy = ExerciseStrategyFactory.getInstance(difficulty);
+    public GameControllerImpl(Difficulty difficulty, Mode mode, GameView view) {
+        this.gameLogic = createGameLogic(difficulty, mode);
+        this.exerciseFactory = gameLogic.exerciseFactory();
         this.view = view;
 
         reset();
         updateView();
+    }
+
+    private GameLogic createGameLogic(Difficulty difficulty, Mode mode) {
+        switch (mode) {
+            case HoundredRounds:
+                return new HoundredRoundsGameLogic(difficulty);
+            case TenRounds:
+                return new TenRoundsGameLogic(difficulty);
+            case Marathon:
+                return new InfiniteGameLogic(difficulty);
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 
     @Override
@@ -75,12 +94,21 @@ public class GameControllerImpl implements GameController {
             if(result.length() == currentInput.length()) {
                 correctGuesses++;
                 currentInput = "";
-                currentExercise = strategy.nextProblem(correctGuesses);
-                updateView();
+
+                gameLogic.endRound();
+                currentExercise = exerciseFactory.nextProblem(correctGuesses);
             }
         } else {
             wrongGuesses++;
+            gameLogic.onWrongGuess();
             currentInput = "";
+            updateView();
+        }
+
+        if(gameLogic.isGameOver()) {
+            ticker.shutdown();
+            view.onGameOver();
+        } else {
             updateView();
         }
     }
@@ -100,7 +128,7 @@ public class GameControllerImpl implements GameController {
     public void reset() {
         correctGuesses = 0;
         wrongGuesses = 0;
-        currentExercise = strategy.nextProblem(correctGuesses);
+        currentExercise = exerciseFactory.nextProblem(correctGuesses);
         currentInput = "";
         timeInSeconds = 0;
 
@@ -129,7 +157,5 @@ public class GameControllerImpl implements GameController {
         this.wrongGuesses = wrongGuesses;
 
         this.currentInput = "";
-
-        // TODO: add time change
     }
 }

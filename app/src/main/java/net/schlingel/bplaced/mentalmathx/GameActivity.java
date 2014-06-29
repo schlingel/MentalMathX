@@ -3,6 +3,8 @@ package net.schlingel.bplaced.mentalmathx;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import net.schlingel.bplaced.mentalmathx.controller.GameController;
 import net.schlingel.bplaced.mentalmathx.controller.impl.GameControllerImpl;
 import net.schlingel.bplaced.mentalmathx.game.Difficulty;
+import net.schlingel.bplaced.mentalmathx.game.Mode;
 import net.schlingel.bplaced.mentalmathx.view.GameView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -22,7 +25,7 @@ import org.androidannotations.annotations.ViewById;
  */
 @Fullscreen
 @EActivity(R.layout.game)
-public class GameActivity extends Activity implements GameView, View.OnClickListener {
+public class GameActivity extends FragmentActivity implements GameView, View.OnClickListener, SummaryFragmentDialog.OKListener {
     private static final int[] BUTTON_IDS = new int[] {
         R.id.btnOne,
         R.id.btnTwo,
@@ -52,16 +55,20 @@ public class GameActivity extends Activity implements GameView, View.OnClickList
 
     @AfterViews
     public void init() {
+        Mode m = (Mode)getIntent().getExtras().getSerializable(Mode.NAME);
+        Difficulty d = (Difficulty)getIntent().getExtras().getSerializable(Difficulty.NAME);
+
         for(int btnID : BUTTON_IDS) {
             findViewById(btnID).setOnClickListener(this);
         }
 
-        controller = new GameControllerImpl(Difficulty.Easy, this);
+        controller = new GameControllerImpl(d, m, this);
     }
 
-    public static Intent asIntent(Context sender, Difficulty difficulty) {
+    public static Intent asIntent(Context sender, Difficulty difficulty, Mode mode) {
         Intent i = new Intent(sender, GameActivity_.class);
         i.putExtra(Difficulty.NAME, difficulty);
+        i.putExtra(Mode.NAME, mode);
 
         return i;
     }
@@ -113,6 +120,12 @@ public class GameActivity extends Activity implements GameView, View.OnClickList
     }
 
     @Override
+    public void onGameOver() {
+        SummaryFragmentDialog_ dialog = new SummaryFragmentDialog_();
+        dialog.show(getSupportFragmentManager(), dialog.getClass().getSimpleName());
+    }
+
+    @Override
     public void onClick(View view) {
         String sFigure = ((Button)view).getText().toString();
         int figure = Integer.parseInt(sFigure);
@@ -123,7 +136,12 @@ public class GameActivity extends Activity implements GameView, View.OnClickList
     @Override
     protected void onPause() {
         super.onPause();
-
         controller.pause();
+    }
+
+    @Override
+    public void onOK(DialogFragment fragment) {
+        startActivity(NewGameActivity.asIntent(this));
+        finish();
     }
 }

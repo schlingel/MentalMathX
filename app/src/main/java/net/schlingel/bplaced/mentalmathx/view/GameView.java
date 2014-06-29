@@ -11,4 +11,6 @@ public interface GameView {
     public void onCorrectGuess();
 
     public void onWrongGuess();
+
+    public void onGameOver();
 }

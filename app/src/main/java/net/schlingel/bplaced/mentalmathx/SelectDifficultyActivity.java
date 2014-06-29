@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 
 import net.schlingel.bplaced.mentalmathx.game.Difficulty;
+import net.schlingel.bplaced.mentalmathx.game.Mode;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Fullscreen;
@@ -16,6 +18,19 @@ import org.androidannotations.annotations.Fullscreen;
 @Fullscreen
 @EActivity(R.layout.select_difficulty)
 public class SelectDifficultyActivity extends ActionBarActivity {
+    private Mode mode;
+
+    @AfterViews
+    public void init() {
+        Object o = getIntent().getExtras().getSerializable(Mode.NAME);
+
+        if(o == null) {
+            throw new IllegalStateException("Should have mode argument!");
+        }
+
+        this.mode = (Mode)o;
+    }
+
     @Click(R.id.btnHard)
     public void startHardGame() {
         startGame(Difficulty.Medium);
@@ -32,11 +47,13 @@ public class SelectDifficultyActivity extends ActionBarActivity {
     }
 
     private void startGame(Difficulty diff) {
-        startActivity(GameActivity.asIntent(this, diff));
+        startActivity(GameActivity.asIntent(this, diff, mode));
+        finish();
     }
 
-    public static Intent asIntent(Context sender) {
+    public static Intent asIntent(Context sender, Mode mode) {
         Intent i = new Intent(sender, SelectDifficultyActivity_.class);
+        i.putExtra(Mode.NAME, mode);
         return i;
     }
 }

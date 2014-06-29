@@ -40,7 +40,7 @@ public class Calculations {
         do {
             op = randomOperator();
             n = randomNumber();
-            m = Operator.oppositeOf(op).apply(result, n);
+            m = (op != Operator.Division || n != 0) ? Operator.oppositeOf(op).apply(result, n) : 0; // simple check to prevent Divide by Zero operations
         } while(m <= 0);
 
         Calculation calc = new Calculation();

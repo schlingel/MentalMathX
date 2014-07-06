@@ -1,4 +1,4 @@
-package net.schlingel.bplaced.mentalmathx.game;
+package net.schlingel.bplaced.mentalmathx.game.strategy;
 
 import net.schlingel.bplaced.mentalmathx.math.Term;
 

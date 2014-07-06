@@ -1,15 +1,15 @@
 package net.schlingel.bplaced.mentalmathx.controller.impl;
 
 import net.schlingel.bplaced.mentalmathx.controller.GameController;
-import net.schlingel.bplaced.mentalmathx.game.GameLogic;
+import net.schlingel.bplaced.mentalmathx.game.logic.GameLogic;
 import net.schlingel.bplaced.mentalmathx.game.Difficulty;
-import net.schlingel.bplaced.mentalmathx.game.ExerciseStrategy;
-import net.schlingel.bplaced.mentalmathx.game.HoundredRoundsGameLogic;
-import net.schlingel.bplaced.mentalmathx.game.InfiniteGameLogic;
+import net.schlingel.bplaced.mentalmathx.game.strategy.ExerciseStrategy;
+import net.schlingel.bplaced.mentalmathx.game.logic.HoundredRoundsGameLogic;
+import net.schlingel.bplaced.mentalmathx.game.logic.InfiniteGameLogic;
 import net.schlingel.bplaced.mentalmathx.game.Mode;
-import net.schlingel.bplaced.mentalmathx.game.TenExercisesGameLogic;
-import net.schlingel.bplaced.mentalmathx.game.TenRoundsGameLogic;
+import net.schlingel.bplaced.mentalmathx.game.logic.TenRoundsGameLogic;
 import net.schlingel.bplaced.mentalmathx.math.Term;
+import net.schlingel.bplaced.mentalmathx.model.Result;
 import net.schlingel.bplaced.mentalmathx.view.GameView;
 
 /**
@@ -62,11 +62,13 @@ public class GameControllerImpl implements GameController {
     private Ticker ticker;
     private long timeInSeconds;
     private GameLogic gameLogic;
+    private Mode mode;
 
     public GameControllerImpl(Difficulty difficulty, Mode mode, GameView view) {
         this.gameLogic = createGameLogic(difficulty, mode);
         this.exerciseFactory = gameLogic.exerciseFactory();
         this.view = view;
+        this.mode = mode;
 
         reset();
         updateView();
@@ -120,8 +122,16 @@ public class GameControllerImpl implements GameController {
     }
 
     private void updateView() {
+        Result result = new Result();
+
+        result.setCorrectGuesses(correctGuesses);
+        result.setWrongGuesses(wrongGuesses);
+        result.setTime(timeInSeconds);
+        result.setRounds(correctGuesses);
+        result.setMode(mode);
+
         view.updateExercise(currentExercise.toString());
-        view.updateStats(timeInSeconds, correctGuesses, wrongGuesses);
+        view.updateStats(result);
     }
 
     @Override

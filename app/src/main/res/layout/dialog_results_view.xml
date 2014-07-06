@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtVwSummary"
+        android:text="@string/txtVwSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="40dp"/>
+
+    <TextView
+        android:id="@+id/txtVwRounds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/txtVwSummary"/>
+
+    <LinearLayout
+        android:id="@+id/llTime"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_below="@id/txtVwRounds"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/txtVwTime"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtVwTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llCorrectGuesses"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_below="@id/llTime"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/txtVwCorrectGuesses"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtVwCorrectGuesses"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llWrongGuesses"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_below="@id/llCorrectGuesses"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/txtVwWrongGuesses"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtVwWrongGuesses"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnOK"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnOK"
+        android:layout_below="@id/llWrongGuesses"
+        />
+
+</RelativeLayout>

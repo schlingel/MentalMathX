@@ -1,10 +1,12 @@
 package net.schlingel.bplaced.mentalmathx.view;
 
+import net.schlingel.bplaced.mentalmathx.model.Result;
+
 /**
  * Created by zombie on 27.06.14.
  */
 public interface GameView {
-    public void updateStats(long runningTimeInSec, int correctCalcs, int wrongGuesses);
+    public void updateStats(Result status);
 
     public void updateExercise(String exerciseTerm);
 

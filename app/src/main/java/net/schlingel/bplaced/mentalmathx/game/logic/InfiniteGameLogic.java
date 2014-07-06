@@ -1,4 +1,8 @@
-package net.schlingel.bplaced.mentalmathx.game;
+package net.schlingel.bplaced.mentalmathx.game.logic;
+
+import net.schlingel.bplaced.mentalmathx.game.Difficulty;
+import net.schlingel.bplaced.mentalmathx.game.strategy.ExerciseStrategy;
+import net.schlingel.bplaced.mentalmathx.game.strategy.ExerciseStrategyFactory;
 
 /**
  * Created by zombie on 29.06.14.

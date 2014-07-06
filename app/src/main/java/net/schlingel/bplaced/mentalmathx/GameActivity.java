@@ -1,6 +1,5 @@
 package net.schlingel.bplaced.mentalmathx;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
@@ -13,7 +12,11 @@ import net.schlingel.bplaced.mentalmathx.controller.GameController;
 import net.schlingel.bplaced.mentalmathx.controller.impl.GameControllerImpl;
 import net.schlingel.bplaced.mentalmathx.game.Difficulty;
 import net.schlingel.bplaced.mentalmathx.game.Mode;
+import net.schlingel.bplaced.mentalmathx.model.Result;
+import net.schlingel.bplaced.mentalmathx.utils.LabelHelper;
 import net.schlingel.bplaced.mentalmathx.view.GameView;
+import net.schlingel.bplaced.mentalmathx.view.ResultsView;
+import net.schlingel.bplaced.mentalmathx.view.impl.DialogResultsView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -25,7 +28,7 @@ import org.androidannotations.annotations.ViewById;
  */
 @Fullscreen
 @EActivity(R.layout.game)
-public class GameActivity extends FragmentActivity implements GameView, View.OnClickListener, SummaryFragmentDialog.OKListener {
+public class GameActivity extends FragmentActivity implements GameView, View.OnClickListener, DialogResultsView.OKListener {
     private static final int[] BUTTON_IDS = new int[] {
         R.id.btnOne,
         R.id.btnTwo,
@@ -51,6 +54,10 @@ public class GameActivity extends FragmentActivity implements GameView, View.OnC
     @ViewById(R.id.txtVwTime)
     TextView txtTime;
 
+    private ResultsView resultsView;
+
+    private Result lastResult;
+
     private GameController controller;
 
     @AfterViews
@@ -63,6 +70,7 @@ public class GameActivity extends FragmentActivity implements GameView, View.OnC
         }
 
         controller = new GameControllerImpl(d, m, this);
+        resultsView = DialogResultsView.from(this);
     }
 
     public static Intent asIntent(Context sender, Difficulty difficulty, Mode mode) {
@@ -74,10 +82,12 @@ public class GameActivity extends FragmentActivity implements GameView, View.OnC
     }
 
     @Override
-    public void updateStats(long runningTimeInSec, int correctCalcs, int wrongGuesses) {
-        final String correct = String.format("✓ × %d", correctCalcs);
-        final String wrong = String.format("✗ × %d", wrongGuesses);
-        final String timeLabel = timeLabel(runningTimeInSec);
+    public void updateStats(Result status) {
+        this.lastResult = status;
+
+        final String correct = String.format("✓ × %d", status.getCorrectGuesses());
+        final String wrong = String.format("✗ × %d", status.getWrongGuesses());
+        final String timeLabel = LabelHelper.timeLabelFrom(status.getTime());
 
         runOnUiThread(new Runnable() {
             @Override
@@ -87,14 +97,6 @@ public class GameActivity extends FragmentActivity implements GameView, View.OnC
                 txtTime.setText(timeLabel);
             }
         });
-    }
-
-    private String timeLabel(long timeInSec) {
-        long seconds = timeInSec % 60;
-        long minutes = (timeInSec / 60) % 60;
-        long hours = timeInSec / 3600;
-
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
     @Override
@@ -121,8 +123,7 @@ public class GameActivity extends FragmentActivity implements GameView, View.OnC
 
     @Override
     public void onGameOver() {
-        SummaryFragmentDialog_ dialog = new SummaryFragmentDialog_();
-        dialog.show(getSupportFragmentManager(), dialog.getClass().getSimpleName());
+        resultsView.show(lastResult);
     }
 
     @Override

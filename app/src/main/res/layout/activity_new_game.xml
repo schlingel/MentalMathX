@@ -9,16 +9,30 @@
     tools:context=".NewGameActivity">
 
     <Button
-        android:id="@+id/btnNewGame"
+        android:id="@+id/btnTenRoundes"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnNewGame"/>
+        android:text="@string/btnTenRoundes"/>
+
+    <Button
+        android:id="@+id/btnHoundredRoundes"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnTenRoundes"
+        android:text="@string/btnHoundredRoundes"/>
+
+    <Button
+        android:id="@+id/btnMarathon"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnHoundredRoundes"
+        android:text="@string/btnMarathon" />
 
     <Button
         android:id="@+id/btnHighscore"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnNewGame"
+        android:layout_alignParentBottom="true"
         android:text="@string/btnHighScore"/>
 
 </RelativeLayout>

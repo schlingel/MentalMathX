@@ -1,6 +1,7 @@
 package net.schlingel.bplaced.mentalmathx.controller;
 
 import net.schlingel.bplaced.mentalmathx.math.Term;
+import net.schlingel.bplaced.mentalmathx.model.Result;
 
 /**
  * Created by zombie on 27.06.14.

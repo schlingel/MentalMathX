@@ -9,5 +9,12 @@
     <string name="btnEasy">Leicht</string>
     <string name="btnMedium">Mittel</string>
     <string name="btnHard">Schwer</string>
-
+    <string name="txtVwSummary">%s Zusammenfassung</string>
+    <string name="txtVwTime">Zeit:</string>
+    <string name="txtVwCorrectGuesses">Richtig gelöst:</string>
+    <string name="txtVwWrongGuesses">Falsch gerechnet:</string>
+    <string name="btnOK">OK</string>
+    <string name="btnMarathon">Marathon</string>
+    <string name="btnHoundredRoundes">100 Runden</string>
+    <string name="btnTenRoundes">10 Runden</string>
 </resources>

@@ -1,4 +1,6 @@
-package net.schlingel.bplaced.mentalmathx.game;
+package net.schlingel.bplaced.mentalmathx.game.logic;
+
+import net.schlingel.bplaced.mentalmathx.game.Difficulty;
 
 /**
  * Created by zombie on 29.06.14.

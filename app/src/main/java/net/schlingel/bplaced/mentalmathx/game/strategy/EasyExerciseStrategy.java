@@ -1,16 +1,17 @@
-package net.schlingel.bplaced.mentalmathx.game;
+package net.schlingel.bplaced.mentalmathx.game.strategy;
 
+import net.schlingel.bplaced.mentalmathx.game.Difficulty;
 import net.schlingel.bplaced.mentalmathx.math.Calculations;
 import net.schlingel.bplaced.mentalmathx.math.Term;
 
 /**
  * Created by zombie on 29.06.14.
  */
-public class MediumExerciseStrategy implements ExerciseStrategy {
+public class EasyExerciseStrategy implements ExerciseStrategy {
     private final Calculations problemGenerator;
 
-    public MediumExerciseStrategy() {
-        this.problemGenerator = new Calculations(Difficulty.Medium);
+    public EasyExerciseStrategy() {
+        problemGenerator = new Calculations(Difficulty.Easy);
     }
 
     @Override

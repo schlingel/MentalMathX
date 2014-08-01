@@ -17,4 +17,7 @@
     <string name="btnMarathon">Marathon</string>
     <string name="btnHoundredRoundes">100 Runden</string>
     <string name="btnTenRoundes">10 Runden</string>
+    <string name="title_activity_highscores">HighscoresActivity</string>
+    <string name="txtVwLoadingDB">Lade Daten</string>
+
 </resources>

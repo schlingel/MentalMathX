@@ -36,7 +36,7 @@ public class NewGameActivity extends ActionBarActivity {
 
     @Click(R.id.btnHighscore)
     public void showHighscores() {
-        Toast.makeText(this, "To implement", Toast.LENGTH_SHORT).show();
+        startActivity(HighscoresActivity.asIntent(this));
     }
 
     public static Intent asIntent(Context sender) {

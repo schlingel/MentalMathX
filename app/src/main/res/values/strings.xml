@@ -19,5 +19,8 @@
     <string name="btnTenRoundes">10 Runden</string>
     <string name="title_activity_highscores">HighscoresActivity</string>
     <string name="txtVwLoadingDB">Lade Daten</string>
+    <string name="txtVwCorrectHeader">Richtig</string>
+    <string name="txtVwWrongHeader">Falsch</string>
+    <string name="txtVwTimeHeader">Dauer</string>
 
 </resources>

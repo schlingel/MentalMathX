@@ -18,10 +18,9 @@ public class MediumExerciseStrategy implements ExerciseStrategy {
     public Term nextProblem(int round) {
         Term problem = problemGenerator.getProblem();
         int hardenSteps = round / 10;
+        int additionalSteps = round / 15;
 
-        if(round > 5 && round < 10) {
-            problemGenerator.hardenProblem(problem);
-        }
+        hardenSteps += additionalSteps;
 
         for(int i = 0; i < hardenSteps; i++) {
             problemGenerator.hardenProblem(problem);

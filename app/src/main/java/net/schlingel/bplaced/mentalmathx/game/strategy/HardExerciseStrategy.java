@@ -17,7 +17,7 @@ public class HardExerciseStrategy implements ExerciseStrategy {
     @Override
     public Term nextProblem(int round) {
         Term problem = problemGenerator.getProblem();
-        int hardenSteps = round / 6;
+        int hardenSteps = round / 5;
 
         for(int i = 0; i < hardenSteps; i++) {
             problemGenerator.hardenProblem(problem);

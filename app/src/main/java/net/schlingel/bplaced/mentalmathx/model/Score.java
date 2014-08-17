@@ -10,6 +10,8 @@ import net.schlingel.bplaced.mentalmathx.game.Mode;
  */
 @DatabaseTable(tableName = "scores")
 public class Score {
+    public static final Score HEADER_ELEMENT = new Score();
+
     @DatabaseField(id = true)
     private Long id;
 
@@ -64,5 +66,15 @@ public class Score {
 
     public void setGameType(Mode gameType) {
         this.gameType = gameType;
+    }
+
+    public static Score from(Result result, Mode mode) {
+        Score s = new Score();
+        s.setTimeInSec(result.getTime());
+        s.setWrongGuesses(result.getWrongGuesses());
+        s.setCorrectGuesses(result.getCorrectGuesses());
+        s.setGameType(mode);
+
+        return s;
     }
 }

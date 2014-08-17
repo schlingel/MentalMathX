@@ -1,13 +1,13 @@
 package net.schlingel.bplaced.mentalmathx.controller.impl;
 
 import net.schlingel.bplaced.mentalmathx.controller.GameController;
-import net.schlingel.bplaced.mentalmathx.game.logic.GameLogic;
 import net.schlingel.bplaced.mentalmathx.game.Difficulty;
-import net.schlingel.bplaced.mentalmathx.game.strategy.ExerciseStrategy;
+import net.schlingel.bplaced.mentalmathx.game.Mode;
+import net.schlingel.bplaced.mentalmathx.game.logic.GameLogic;
 import net.schlingel.bplaced.mentalmathx.game.logic.HoundredRoundsGameLogic;
 import net.schlingel.bplaced.mentalmathx.game.logic.InfiniteGameLogic;
-import net.schlingel.bplaced.mentalmathx.game.Mode;
 import net.schlingel.bplaced.mentalmathx.game.logic.TenRoundsGameLogic;
+import net.schlingel.bplaced.mentalmathx.game.strategy.ExerciseStrategy;
 import net.schlingel.bplaced.mentalmathx.math.Term;
 import net.schlingel.bplaced.mentalmathx.model.Result;
 import net.schlingel.bplaced.mentalmathx.view.GameView;
@@ -16,6 +16,7 @@ import net.schlingel.bplaced.mentalmathx.view.GameView;
  * Created by zombie on 27.06.14.
  */
 public class GameControllerImpl implements GameController {
+    private static final String TAG = GameControllerImpl.class.getSimpleName();
     private static class Ticker implements Runnable {
         private GameController ctrl;
         private long seconds;
@@ -107,11 +108,11 @@ public class GameControllerImpl implements GameController {
             updateView();
         }
 
+        updateView();
+
         if(gameLogic.isGameOver()) {
             ticker.shutdown();
             view.onGameOver();
-        } else {
-            updateView();
         }
     }
 

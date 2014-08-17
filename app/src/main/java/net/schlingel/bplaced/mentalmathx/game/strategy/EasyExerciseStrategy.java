@@ -19,10 +19,6 @@ public class EasyExerciseStrategy implements ExerciseStrategy {
         Term problem = problemGenerator.getProblem();
         int hardenSteps = round / 10;
 
-        if(round > 5 && round < 10) {
-            problemGenerator.hardenProblem(problem);
-        }
-
         for(int i = 0; i < hardenSteps; i++) {
             problemGenerator.hardenProblem(problem);
         }

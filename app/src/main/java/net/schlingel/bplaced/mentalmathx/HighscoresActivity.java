@@ -2,33 +2,26 @@ package net.schlingel.bplaced.mentalmathx;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import net.schlingel.bplaced.mentalmathx.R;
+import android.view.View;
+import android.widget.RelativeLayout;
+
 import net.schlingel.bplaced.mentalmathx.controller.HighscoreController;
 import net.schlingel.bplaced.mentalmathx.controller.impl.HighscoreControllerImpl;
 import net.schlingel.bplaced.mentalmathx.game.Mode;
 import net.schlingel.bplaced.mentalmathx.model.Score;
-import net.schlingel.bplaced.mentalmathx.utils.DatabaseHelper;
-import net.schlingel.bplaced.mentalmathx.view.HighscoresSubView;
 import net.schlingel.bplaced.mentalmathx.view.HighscoresView;
-import net.schlingel.bplaced.mentalmathx.view.impl.FragmentHighscoresSubView;
+import net.schlingel.bplaced.mentalmathx.view.impl.FragmentHighscoresSubView_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 @EActivity(R.layout.activity_highscores)
 public class HighscoresActivity extends ActionBarActivity implements HighscoresView {
@@ -36,8 +29,8 @@ public class HighscoresActivity extends ActionBarActivity implements HighscoresV
     private static final Mode[] VISIBLE_SCORES = new Mode[] { Mode.TenRounds, Mode.HoundredRounds, Mode.Marathon };
     private HighscoreController controller;
 
-    private static class ScorePagesAdapter extends FragmentPagerAdapter {
-        private FragmentHighscoresSubView[] highscoresSubViewse;
+    private static class ScorePagesAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
+        private FragmentHighscoresSubView_[] highscoresSubViewse;
         private Score[] scores;
 
         public ScorePagesAdapter(FragmentManager fm, Score[] scores) {
@@ -48,13 +41,13 @@ public class HighscoresActivity extends ActionBarActivity implements HighscoresV
             }
 
             this.scores = scores;
-            this.highscoresSubViewse = new FragmentHighscoresSubView[VISIBLE_SCORES.length];
+            this.highscoresSubViewse = new FragmentHighscoresSubView_[VISIBLE_SCORES.length];
         }
 
         @Override
         public Fragment getItem(int position) {
             if(highscoresSubViewse[position] == null) {
-                highscoresSubViewse[position] = new FragmentHighscoresSubView();
+                highscoresSubViewse[position] = new FragmentHighscoresSubView_();
                 highscoresSubViewse[position].setMode(VISIBLE_SCORES[position]);
                 highscoresSubViewse[position].show(filterScoresForMode(scores, VISIBLE_SCORES[position]));
             }
@@ -66,10 +59,25 @@ public class HighscoresActivity extends ActionBarActivity implements HighscoresV
         public int getCount() {
             return VISIBLE_SCORES.length;
         }
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+        }
     }
 
     @ViewById(R.id.vwPgrHighscores)
     ViewPager vwPgrHighscres;
+
+    @ViewById(R.id.rlWaiting)
+    RelativeLayout rlWaiting;
 
     @AfterViews
     public void init() {
@@ -80,13 +88,16 @@ public class HighscoresActivity extends ActionBarActivity implements HighscoresV
     @Override
     public void show(Score[] scores) {
         if(scores == null) {
-            // TODO: fallback view
-
             return;
         }
 
+        rlWaiting.setVisibility(View.GONE);
+        vwPgrHighscres.setVisibility(View.VISIBLE);
+
         ScorePagesAdapter adapter = new ScorePagesAdapter(getSupportFragmentManager(), scores);
         vwPgrHighscres.setAdapter(adapter);
+        vwPgrHighscres.setCurrentItem(0);
+
         adapter.notifyDataSetChanged();
     }
 
@@ -100,6 +111,11 @@ public class HighscoresActivity extends ActionBarActivity implements HighscoresV
         }
 
         return scores.toArray(new Score[0]);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     public static Intent asIntent(Context sender) {

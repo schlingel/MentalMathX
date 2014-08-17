@@ -2,8 +2,10 @@ package net.schlingel.bplaced.mentalmathx;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +15,8 @@ import net.schlingel.bplaced.mentalmathx.controller.impl.GameControllerImpl;
 import net.schlingel.bplaced.mentalmathx.game.Difficulty;
 import net.schlingel.bplaced.mentalmathx.game.Mode;
 import net.schlingel.bplaced.mentalmathx.model.Result;
+import net.schlingel.bplaced.mentalmathx.model.Score;
+import net.schlingel.bplaced.mentalmathx.utils.DatabaseHelper;
 import net.schlingel.bplaced.mentalmathx.utils.LabelHelper;
 import net.schlingel.bplaced.mentalmathx.view.GameView;
 import net.schlingel.bplaced.mentalmathx.view.ResultsView;
@@ -20,15 +24,42 @@ import net.schlingel.bplaced.mentalmathx.view.impl.DialogResultsView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Fullscreen;
 import org.androidannotations.annotations.ViewById;
+
+import java.sql.SQLException;
 
 /**
  * Created by zombie on 27.06.14.
  */
-@Fullscreen
 @EActivity(R.layout.game)
 public class GameActivity extends FragmentActivity implements GameView, View.OnClickListener, DialogResultsView.OKListener {
+    private static class InsertScoreTasks extends AsyncTask<Score, Void, Void> {
+        private Context context;
+
+        public InsertScoreTasks(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected Void doInBackground(Score... scores) {
+            Score scoreToInsert = scores[0];
+
+            try {
+                DatabaseHelper helper = new DatabaseHelper(context);
+                helper.persist(scoreToInsert);
+                Log.i(GameActivity.class.getSimpleName(), "Inserted new score");
+            } catch (SQLException e) {
+                Log.e(GameActivity.class.getSimpleName(), "SQL Exception occurred! Couldn't persist score!");
+            }
+
+            return null;
+        }
+
+        public static InsertScoreTasks from(Context context) {
+            return new InsertScoreTasks(context);
+        }
+    }
+
     private static final int[] BUTTON_IDS = new int[] {
         R.id.btnOne,
         R.id.btnTwo,
@@ -60,16 +91,18 @@ public class GameActivity extends FragmentActivity implements GameView, View.OnC
 
     private GameController controller;
 
+    private Mode currentMode;
+
     @AfterViews
     public void init() {
-        Mode m = (Mode)getIntent().getExtras().getSerializable(Mode.NAME);
+        currentMode = (Mode)getIntent().getExtras().getSerializable(Mode.NAME);
         Difficulty d = (Difficulty)getIntent().getExtras().getSerializable(Difficulty.NAME);
 
         for(int btnID : BUTTON_IDS) {
             findViewById(btnID).setOnClickListener(this);
         }
 
-        controller = new GameControllerImpl(d, m, this);
+        controller = new GameControllerImpl(d, currentMode, this);
         resultsView = DialogResultsView.from(this);
     }
 
@@ -123,6 +156,7 @@ public class GameActivity extends FragmentActivity implements GameView, View.OnC
 
     @Override
     public void onGameOver() {
+        InsertScoreTasks.from(this).execute(Score.from(lastResult, currentMode));
         resultsView.show(lastResult);
     }
 

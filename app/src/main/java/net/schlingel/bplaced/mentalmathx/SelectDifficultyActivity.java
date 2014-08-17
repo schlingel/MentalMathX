@@ -15,7 +15,6 @@ import org.androidannotations.annotations.Fullscreen;
 /**
  * Created by zombie on 27.06.14.
  */
-@Fullscreen
 @EActivity(R.layout.select_difficulty)
 public class SelectDifficultyActivity extends ActionBarActivity {
     private Mode mode;

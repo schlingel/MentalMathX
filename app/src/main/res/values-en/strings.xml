@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MentalMathX</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="btnNewGame">New Game</string>
+    <string name="btnHighScore">High Scores</string>
+    <string name="btnEasy">Easy</string>
+    <string name="btnMedium">Normal</string>
+    <string name="btnHard">Hard</string>
+    <string name="txtVwSummary">%s Summary</string>
+    <string name="txtVwTime">Time:</string>
+    <string name="txtVwCorrectGuesses">Solved correctly:</string>
+    <string name="txtVwWrongGuesses">Errors made:</string>
+    <string name="btnOK">OK</string>
+    <string name="btnMarathon">Marathon</string>
+    <string name="btnHoundredRoundes">100 Rounds</string>
+    <string name="btnTenRoundes">10 Rounds</string>
+    <string name="title_activity_highscores">HighscoresActivity</string>
+    <string name="txtVwLoadingDB">Loading data</string>
+    <string name="txtVwCorrectHeader">Correct</string>
+    <string name="txtVwWrongHeader">Wrong</string>
+    <string name="txtVwTimeHeader">Duration</string>
+    <string name="txtVwSelectDifficulty">Difficulty?</string>
+    <string name="txtVwSelectMode">Which mode?</string>
+    <string name="txtVwAboutHeader">About...</string>
+    <string name="txtVwAboutApp">This app is Free Software and was published under the GPLv3. The source code is available under https://github.com/schlingel/MentalMathX. If you have paid for this app demand a refund and download the free variant.</string>
+    <string name="txtVwAboutIcon">The app icon was made by Freepik (http://www.freepik) and is licensed under the CC-BY 3.0. It was published on http://www.flaticon.com</string>
+    <string name="btnAbout">About</string>
+</resources>

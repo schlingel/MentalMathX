@@ -9,6 +9,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 import net.schlingel.bplaced.mentalmathx.R;
@@ -24,8 +27,7 @@ import org.w3c.dom.Text;
 /**
  * Created by zombie on 29.06.14.
  */
-@EFragment(R.layout.dialog_results_view)
-public class DialogResultsView extends DialogFragment implements ResultsView {
+public class DialogResultsView extends DialogFragment implements ResultsView, View.OnClickListener {
     private FragmentActivity host;
 
     TextView txtVwTime;
@@ -36,10 +38,12 @@ public class DialogResultsView extends DialogFragment implements ResultsView {
 
     TextView txtVwSummary;
 
+    Button btnOK;
+
     private Result result;
 
-    public static DialogResultsView_ from(FragmentActivity host) {
-        DialogResultsView_ dlg = new DialogResultsView_();
+    public static DialogResultsView from(FragmentActivity host) {
+        DialogResultsView dlg = new DialogResultsView();
         dlg.setHost(host);
 
         return dlg;
@@ -55,6 +59,11 @@ public class DialogResultsView extends DialogFragment implements ResultsView {
         this.host = host;
     }
 
+    @Override
+    public void onClick(View view) {
+        listener.onOK(this);
+    }
+
     public interface OKListener {
         public void onOK(DialogFragment fragment);
     }
@@ -62,17 +71,33 @@ public class DialogResultsView extends DialogFragment implements ResultsView {
     private OKListener listener;
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.dialog_results_view, container, false);
 
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         txtVwSummary = (TextView)view.findViewById(R.id.txtVwSummary);
         txtVwTime = (TextView)view.findViewById(R.id.txtVwTime);
         txtVwCorrectGuesses = (TextView)view.findViewById(R.id.txtVwCorrectGuesses);
         txtVwWrongGuesses = (TextView)view.findViewById(R.id.txtVwWrongGuesses);
+        btnOK = (Button)view.findViewById(R.id.btnOK);
+
         txtVwCorrectGuesses.setText(Integer.toString(result.getCorrectGuesses()));
         txtVwWrongGuesses.setText(Integer.toString(result.getWrongGuesses()));
         txtVwTime.setText(LabelHelper.timeLabelFrom(result.getTime()));
         txtVwSummary.setText(LabelHelper.summaryLabelFor(result.getMode(), host));
+        btnOK.setOnClickListener(this);
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        return dialog;
     }
 
     @Override
@@ -84,10 +109,5 @@ public class DialogResultsView extends DialogFragment implements ResultsView {
         } else {
             throw new IllegalArgumentException("Activity must be an OKListener instance!");
         }
-    }
-
-    @Click(R.id.btnOK)
-    public void onOKClick() {
-        listener.onOK(this);
     }
 }

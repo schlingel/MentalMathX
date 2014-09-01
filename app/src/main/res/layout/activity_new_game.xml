@@ -55,8 +55,18 @@
             android:layout_margin="3dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_above="@+id/btnAbout"
             android:text="@string/btnHighScore"/>
+
+        <Button
+            style="@style/MentalButton"
+            android:id="@id/btnAbout"
+            android:layout_margin="3dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/btnAbout"/>
+
 
         </RelativeLayout>
 

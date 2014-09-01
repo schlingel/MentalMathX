@@ -22,6 +22,9 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".AboutActivity_"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".SelectDifficultyActivity_"
             android:screenOrientation="portrait" />
         <activity

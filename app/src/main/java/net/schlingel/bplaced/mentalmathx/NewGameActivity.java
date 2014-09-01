@@ -31,6 +31,11 @@ public class NewGameActivity extends ActionBarActivity {
         startActivity(HighscoresActivity.asIntent(this));
     }
 
+    @Click(R.id.btnAbout)
+    public void showAbout() {
+        startActivity(AboutActivity.asIntent(this));
+    }
+
     public static Intent asIntent(Context sender) {
         Intent i = new Intent(sender, NewGameActivity_.class);
         return i;

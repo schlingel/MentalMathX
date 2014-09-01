@@ -23,8 +23,12 @@ public class GameControllerImpl implements GameController {
         private transient boolean isAlive;
 
         public Ticker(GameController ctrl) {
+            this(ctrl, 0L);
+        }
+
+        public Ticker(GameController ctrl, long seconds) {
             this.ctrl = ctrl;
-            this.seconds = 0;
+            this.seconds = seconds;
             this.isAlive = true;
         }
 
@@ -158,7 +162,8 @@ public class GameControllerImpl implements GameController {
 
     @Override
     public void resume() {
-
+        ticker = new Ticker(this, timeInSeconds);
+        new Thread(ticker).start();
     }
 
     @Override

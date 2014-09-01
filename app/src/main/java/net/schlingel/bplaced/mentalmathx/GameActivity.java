@@ -177,6 +177,12 @@ public class GameActivity extends FragmentActivity implements GameView, View.OnC
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        controller.resume();
+    }
+
+    @Override
     public void onOK(DialogFragment fragment) {
         startActivity(NewGameActivity.asIntent(this));
         finish();

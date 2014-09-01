@@ -10,8 +10,8 @@
         android:text="Title"
         android:gravity="center"
         android:textColor="@color/Light"
-        android:padding="15dp"
-        android:textSize="30dp"
+        android:padding="12dp"
+        android:textSize="18dp"
         android:background="@color/VeryDark"
         android:layout_height="wrap_content" />
 

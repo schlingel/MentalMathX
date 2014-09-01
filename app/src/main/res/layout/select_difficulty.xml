@@ -1,29 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnEasy"
-        style="@style/MentalButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btnEasy"/>
+    <TextView
+        android:id="@+id/txtVwSelectDifficulty"
+        android:layout_width="match_parent"
+        android:padding="12dp"
+        android:background="@color/VeryDark"
+        android:text="@string/txtVwSelectDifficulty"
+        android:gravity="center"
+        android:textColor="@color/Light"
+        android:textSize="18dp"
+        android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/btnMedium"
-        style="@style/MentalButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnEasy"
-        android:text="@string/btnMedium"/>
+    <RelativeLayout
+        android:layout_below="@id/txtVwSelectDifficulty"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnHard"
-        style="@style/MentalButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnMedium"
-        android:text="@string/btnHard"/>
+        <Button
+            android:id="@+id/btnEasy"
+            style="@style/MentalButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btnEasy"/>
 
+        <Button
+            android:id="@+id/btnMedium"
+            style="@style/MentalButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnEasy"
+            android:text="@string/btnMedium"/>
+
+        <Button
+            android:id="@+id/btnHard"
+            style="@style/MentalButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnMedium"
+            android:text="@string/btnHard"/>
+
+        </RelativeLayout>
 </RelativeLayout>

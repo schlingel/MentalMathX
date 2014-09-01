@@ -22,5 +22,7 @@
     <string name="txtVwCorrectHeader">Richtig</string>
     <string name="txtVwWrongHeader">Falsch</string>
     <string name="txtVwTimeHeader">Dauer</string>
+    <string name="txtVwSelectDifficulty">Schwierigkeit?</string>
+    <string name="txtVwSelectMode">Welcher Modus?</string>
 
 </resources>

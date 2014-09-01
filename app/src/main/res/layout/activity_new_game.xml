@@ -9,27 +9,35 @@
     tools:context=".NewGameActivity">
 
     <Button
+        style="@style/MentalButton"
         android:id="@+id/btnTenRoundes"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="3dp"
         android:text="@string/btnTenRoundes"/>
 
     <Button
+        style="@style/MentalButton"
         android:id="@+id/btnHoundredRoundes"
         android:layout_width="fill_parent"
+        android:layout_margin="3dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnTenRoundes"
         android:text="@string/btnHoundredRoundes"/>
 
     <Button
+        style="@style/MentalButton"
         android:id="@+id/btnMarathon"
         android:layout_width="fill_parent"
+        android:layout_margin="3dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnHoundredRoundes"
         android:text="@string/btnMarathon" />
 
     <Button
+        style="@style/MentalButton"
         android:id="@+id/btnHighscore"
+        android:layout_margin="3dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

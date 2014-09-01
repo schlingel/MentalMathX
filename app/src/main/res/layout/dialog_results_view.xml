@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:background="@color/Normal"
+    android:padding="12dp"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/txtVwSummary"
         android:text="@string/txtVwSummary"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="40dp"/>
-
-    <TextView
-        android:id="@+id/txtVwRounds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/txtVwSummary"/>
+        android:textColor="@color/Light"
+        android:background="@color/VeryDark"
+        android:padding="15dp"
+        android:textSize="18dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"/>
 
     <LinearLayout
         android:id="@+id/llTime"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_below="@id/txtVwRounds"
+        android:layout_below="@id/txtVwSummary"
         android:layout_height="wrap_content">
         <TextView
             android:text="@string/txtVwTime"
             android:layout_width="0dp"
             android:layout_weight="0.5"
+            android:textColor="@color/VeryDark"
+            android:textSize="16dp"
+            android:padding="5dp"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/txtVwTime"
             android:layout_width="0dp"
+            android:textColor="@color/VeryDark"
+            android:textSize="16dp"
+            android:padding="5dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"/>
     </LinearLayout>
@@ -46,10 +52,16 @@
             android:text="@string/txtVwCorrectGuesses"
             android:layout_width="0dp"
             android:layout_weight="0.5"
+            android:textColor="@color/VeryDark"
+            android:textSize="16dp"
+            android:padding="5dp"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/txtVwCorrectGuesses"
             android:layout_width="0dp"
+            android:textColor="@color/VeryDark"
+            android:textSize="16dp"
+            android:padding="5dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"/>
     </LinearLayout>
@@ -64,10 +76,16 @@
             android:text="@string/txtVwWrongGuesses"
             android:layout_width="0dp"
             android:layout_weight="0.5"
+            android:textColor="@color/VeryDark"
+            android:textSize="16dp"
+            android:padding="5dp"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/txtVwWrongGuesses"
             android:layout_width="0dp"
+            android:textColor="@color/VeryDark"
+            android:textSize="16dp"
+            android:padding="5dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"/>
     </LinearLayout>
@@ -76,7 +94,9 @@
         android:id="@+id/btnOK"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/MentalButton"
         android:text="@string/btnOK"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/llWrongGuesses"
         />
 

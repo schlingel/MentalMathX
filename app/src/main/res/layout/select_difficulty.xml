@@ -5,12 +5,14 @@
 
     <Button
         android:id="@+id/btnEasy"
+        style="@style/MentalButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/btnEasy"/>
 
     <Button
         android:id="@+id/btnMedium"
+        style="@style/MentalButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnEasy"
@@ -18,6 +20,7 @@
 
     <Button
         android:id="@+id/btnHard"
+        style="@style/MentalButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnMedium"

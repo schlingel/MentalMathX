@@ -2,9 +2,12 @@ package net.schlingel.bplaced.mentalmathx.view.impl;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -24,8 +27,6 @@ import org.w3c.dom.Text;
 @EFragment(R.layout.dialog_results_view)
 public class DialogResultsView extends DialogFragment implements ResultsView {
     private FragmentActivity host;
-
-    TextView txtVwRounds;
 
     TextView txtVwTime;
 
@@ -68,9 +69,6 @@ public class DialogResultsView extends DialogFragment implements ResultsView {
         txtVwTime = (TextView)view.findViewById(R.id.txtVwTime);
         txtVwCorrectGuesses = (TextView)view.findViewById(R.id.txtVwCorrectGuesses);
         txtVwWrongGuesses = (TextView)view.findViewById(R.id.txtVwWrongGuesses);
-        txtVwRounds = (TextView)view.findViewById(R.id.txtVwRounds);
-
-        txtVwRounds.setText(Integer.toString(result.getCorrectGuesses()));
         txtVwCorrectGuesses.setText(Integer.toString(result.getCorrectGuesses()));
         txtVwWrongGuesses.setText(Integer.toString(result.getWrongGuesses()));
         txtVwTime.setText(LabelHelper.timeLabelFrom(result.getTime()));

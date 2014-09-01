@@ -97,7 +97,7 @@ public class ScoreAdapter extends BaseAdapter {
 
         if(i == 0) {
             sCorrect = context.getString(R.string.txtVwCorrectHeader);
-            sWrong = context.getString(R.string.txtVwWrongGuesses);
+            sWrong = context.getString(R.string.txtVwWrongHeader);
             sTimeLabel = context.getString(R.string.txtVwTimeHeader);
         } else {
             sCorrect = score.getCorrectGuesses().toString();

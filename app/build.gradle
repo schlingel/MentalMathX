@@ -20,6 +20,14 @@ android {
         versionCode 1
         versionName '1.0'
     }
+    signingConfig {
+        release {
+            storeFile file("myreleasekey.keystore")
+            storePassword "password"
+            keyAlias "MyReleaseKey"
+            keyPassword "password"
+        }
+    }
     buildTypes {
         release {
             runProguard false

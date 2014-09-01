@@ -41,7 +41,7 @@ public class Calculations {
             op = randomOperator();
             n = randomNumber();
             m = (op != Operator.Multiplication || n != 0) ? Operator.oppositeOf(op).apply(result, n) : 0; // simple check to prevent Divide by Zero check
-        } while(m <= 0);
+        } while(!isValidResult(n, m, op));
 
         Calculation calc = new Calculation();
         calc.setLeftHandTerm(new Number(m));
@@ -49,6 +49,16 @@ public class Calculations {
         calc.setOperator(op);
 
         return calc;
+    }
+
+    private boolean isValidResult(int n, int m, Operator op) {
+        if(m <= 0) {
+            return false;
+        }
+
+        double x = op.apply((double)m, (double)n);
+
+        return x == (int)x;
     }
 
     public Term hardenProblem(Term term) {

@@ -40,6 +40,21 @@ public enum Operator {
         throw new IllegalStateException("Operator instance is neither Addition, Subtraction, Division nor Multiplication!");
     }
 
+    public double apply(double leftHandValue, double rightHandValue) {
+        switch (this) {
+            case Addition:
+                return leftHandValue + rightHandValue;
+            case Subtraction:
+                return leftHandValue - rightHandValue;
+            case Division:
+                return leftHandValue / rightHandValue;
+            case Multiplication:
+                return leftHandValue * rightHandValue;
+        }
+
+        throw new IllegalStateException("Operator instance is neither Addition, Subtraction, Division nor Multiplication!");
+    }
+
     public static Operator oppositeOf(Operator op) {
         if(op == null) {
             throw new IllegalArgumentException("Operator must not be null!");

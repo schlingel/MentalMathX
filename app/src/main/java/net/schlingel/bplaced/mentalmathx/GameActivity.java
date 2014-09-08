@@ -19,7 +19,9 @@ import net.schlingel.bplaced.mentalmathx.game.Mode;
 import net.schlingel.bplaced.mentalmathx.model.Result;
 import net.schlingel.bplaced.mentalmathx.model.Score;
 import net.schlingel.bplaced.mentalmathx.utils.DatabaseHelper;
+import net.schlingel.bplaced.mentalmathx.utils.DelayedTask;
 import net.schlingel.bplaced.mentalmathx.utils.LabelHelper;
+import net.schlingel.bplaced.mentalmathx.view.DisplayMode;
 import net.schlingel.bplaced.mentalmathx.view.GameView;
 import net.schlingel.bplaced.mentalmathx.view.ResultsView;
 import net.schlingel.bplaced.mentalmathx.view.impl.DialogResultsView;
@@ -34,7 +36,9 @@ import java.sql.SQLException;
  * Created by zombie on 27.06.14.
  */
 @EActivity(R.layout.game)
-public class GameActivity extends FragmentActivity implements GameView, View.OnClickListener, DialogResultsView.OKListener {
+public class GameActivity extends FragmentActivity implements GameView, View.OnClickListener, DialogResultsView.OKListener, DelayedTask.OnContinueCallback {
+    private static final long DISPLAY_DELAY_IN_MILLIS = 75L;
+
     private static class InsertScoreTasks extends AsyncTask<Score, Void, Void> {
         private Context context;
 
@@ -87,6 +91,9 @@ public class GameActivity extends FragmentActivity implements GameView, View.OnC
     @ViewById(R.id.txtVwTime)
     TextView txtTime;
 
+    @ViewById(R.id.txtVwInput)
+    TextView txtInput;
+
     private ResultsView resultsView;
 
     private Result lastResult;
@@ -114,6 +121,26 @@ public class GameActivity extends FragmentActivity implements GameView, View.OnC
         i.putExtra(Mode.NAME, mode);
 
         return i;
+    }
+
+    @Override
+    public void updateDisplayMode(DisplayMode mode) {
+        switch (mode) {
+            case Error:
+                txtInput.setBackgroundColor(getResources().getColor(R.color.ErrorBg));
+                txtInput.setTextColor(getResources().getColor(R.color.ErrorFront));
+                break;
+            case Correct:
+                txtInput.setBackgroundColor(getResources().getColor(R.color.CorrectBg));
+                txtInput.setTextColor(getResources().getColor(R.color.CorrectFront));
+                break;
+            case Default:
+                txtInput.setBackgroundColor(getResources().getColor(R.color.VeryLight));
+                txtInput.setTextColor(getResources().getColor(R.color.Dark));
+                break;
+            default:
+                throw new IllegalArgumentException("Displaymode must not be null!");
+        }
     }
 
     @Override
@@ -148,18 +175,45 @@ public class GameActivity extends FragmentActivity implements GameView, View.OnC
 
     @Override
     public void onCorrectGuess() {
-        // TODO: add sound
+        updateDisplayMode(DisplayMode.Correct);
+        resetDisplayMode(DISPLAY_DELAY_IN_MILLIS);
     }
 
     @Override
     public void onWrongGuess() {
-        // TODO: add sound
+        updateDisplayMode(DisplayMode.Error);
+        resetDisplayMode(DISPLAY_DELAY_IN_MILLIS);
+    }
+
+    private void resetDisplayMode(long waitPeriod) {
+        DelayedTask task = new DelayedTask(waitPeriod, this);
+        task.execute();
+    }
+
+    @Override
+    public void doAction() {
+        txtInput.post(new Runnable() {
+            @Override
+            public void run() {
+                updateDisplayMode(DisplayMode.Default);
+            }
+        });
     }
 
     @Override
     public void onGameOver() {
         InsertScoreTasks.from(this).execute(Score.from(lastResult, currentMode));
         resultsView.show(lastResult);
+    }
+
+    @Override
+    public void updateInput(final String inputString) {
+        txtInput.post(new Runnable() {
+            @Override
+            public void run() {
+                txtInput.setText(inputString);
+            }
+        });
     }
 
     @Override
@@ -186,5 +240,11 @@ public class GameActivity extends FragmentActivity implements GameView, View.OnC
     public void onOK(DialogFragment fragment) {
         startActivity(NewGameActivity.asIntent(this));
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(NewGameActivity.asIntent(this));
     }
 }

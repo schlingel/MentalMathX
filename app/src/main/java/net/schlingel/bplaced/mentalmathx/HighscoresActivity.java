@@ -14,6 +14,8 @@ import net.schlingel.bplaced.mentalmathx.controller.HighscoreController;
 import net.schlingel.bplaced.mentalmathx.controller.impl.HighscoreControllerImpl;
 import net.schlingel.bplaced.mentalmathx.game.Mode;
 import net.schlingel.bplaced.mentalmathx.model.Score;
+import net.schlingel.bplaced.mentalmathx.utils.MarathonScoreComparator;
+import net.schlingel.bplaced.mentalmathx.utils.RegularScoreComparator;
 import net.schlingel.bplaced.mentalmathx.view.HighscoresView;
 import net.schlingel.bplaced.mentalmathx.view.impl.FragmentHighscoresSubView_;
 
@@ -22,11 +24,14 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 @EActivity(R.layout.activity_highscores)
 public class HighscoresActivity extends ActionBarActivity implements HighscoresView {
     private static final String TAG = HighscoresActivity.class.getSimpleName();
     private static final Mode[] VISIBLE_SCORES = new Mode[] { Mode.TenRounds, Mode.HoundredRounds, Mode.Marathon };
+    private static final Comparator<Score>[] COMPARATORS = new Comparator[] { new RegularScoreComparator(), new RegularScoreComparator(), new MarathonScoreComparator() };
     private HighscoreController controller;
 
     private static class ScorePagesAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
@@ -49,7 +54,7 @@ public class HighscoresActivity extends ActionBarActivity implements HighscoresV
             if(highscoresSubViewse[position] == null) {
                 highscoresSubViewse[position] = new FragmentHighscoresSubView_();
                 highscoresSubViewse[position].setMode(VISIBLE_SCORES[position]);
-                highscoresSubViewse[position].show(filterScoresForMode(scores, VISIBLE_SCORES[position]));
+                highscoresSubViewse[position].show(filterScoresForMode(scores, VISIBLE_SCORES[position], COMPARATORS[position]));
             }
 
             return highscoresSubViewse[position];
@@ -101,8 +106,9 @@ public class HighscoresActivity extends ActionBarActivity implements HighscoresV
         adapter.notifyDataSetChanged();
     }
 
-    private static Score[] filterScoresForMode(Score[] allScores, Mode mode) {
+    private static Score[] filterScoresForMode(Score[] allScores, Mode mode, Comparator<Score> comparator) {
         ArrayList<Score> scores = new ArrayList<Score>();
+        Score[] scoresArr = null;
 
         for(Score s : allScores) {
             if(s.getGameType() == mode) {
@@ -110,7 +116,10 @@ public class HighscoresActivity extends ActionBarActivity implements HighscoresV
             }
         }
 
-        return scores.toArray(new Score[0]);
+        scoresArr = scores.toArray(new Score[0]);
+        Arrays.sort(scoresArr, comparator);
+
+        return scoresArr;
     }
 
     @Override

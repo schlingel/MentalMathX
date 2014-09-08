@@ -10,9 +10,13 @@ public interface GameView {
 
     public void updateExercise(String exerciseTerm);
 
+    public void updateDisplayMode(DisplayMode mode);
+
     public void onCorrectGuess();
 
     public void onWrongGuess();
 
     public void onGameOver();
+
+    public void updateInput(String inputString);
 }

@@ -5,4 +5,10 @@
     <color name="Normal">#03a9f4</color>
     <color name="Light">#b3e5fc</color>
     <color name="VeryLight">#e1f5fe</color>
+
+    <color name="ErrorBg">#f36c60</color>
+    <color name="ErrorFront">#fde0dc</color>
+
+    <color name="CorrectBg">#42bd41</color>
+    <color name="CorrectFront">#d0f8ce</color>
 </resources>

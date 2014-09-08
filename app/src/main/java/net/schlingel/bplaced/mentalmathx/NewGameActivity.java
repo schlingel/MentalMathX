@@ -13,17 +13,17 @@ import org.androidannotations.annotations.EActivity;
 public class NewGameActivity extends ActionBarActivity {
     @Click(R.id.btnTenRoundes)
     public void startTenRoundesGame() {
-        startActivity(SelectDifficultyActivity.asIntent(this, Mode.TenRounds));
+        startGameActivity(SelectDifficultyActivity.asIntent(this, Mode.TenRounds));
     }
 
     @Click(R.id.btnHoundredRoundes)
     public void startHoundredRoundesGame() {
-        startActivity(SelectDifficultyActivity.asIntent(this, Mode.HoundredRounds));
+        startGameActivity(SelectDifficultyActivity.asIntent(this, Mode.HoundredRounds));
     }
 
     @Click(R.id.btnMarathon)
     public void startMarathonGame() {
-        startActivity(SelectDifficultyActivity.asIntent(this, Mode.Marathon));
+        startGameActivity(SelectDifficultyActivity.asIntent(this, Mode.Marathon));
     }
 
     @Click(R.id.btnHighscore)
@@ -34,6 +34,11 @@ public class NewGameActivity extends ActionBarActivity {
     @Click(R.id.btnAbout)
     public void showAbout() {
         startActivity(AboutActivity.asIntent(this));
+    }
+
+    private void startGameActivity(Intent i) {
+        startActivity(i);
+        finish();
     }
 
     public static Intent asIntent(Context sender) {

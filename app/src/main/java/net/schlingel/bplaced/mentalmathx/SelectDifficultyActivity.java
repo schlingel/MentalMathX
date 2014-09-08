@@ -50,6 +50,12 @@ public class SelectDifficultyActivity extends ActionBarActivity {
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(NewGameActivity.asIntent(this));
+    }
+
     public static Intent asIntent(Context sender, Mode mode) {
         Intent i = new Intent(sender, SelectDifficultyActivity_.class);
         i.putExtra(Mode.NAME, mode);

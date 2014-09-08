@@ -14,6 +14,11 @@ public class AboutActivity extends ActionBarActivity {
     public static Intent asIntent(Context sender) {
         Intent i = new Intent(sender, AboutActivity_.class);
         return i;
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

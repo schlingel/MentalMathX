@@ -103,11 +103,13 @@ public class GameControllerImpl implements GameController {
                 currentInput = "";
 
                 gameLogic.endRound();
+                view.onCorrectGuess();
                 currentExercise = exerciseFactory.nextProblem(correctGuesses);
             }
         } else {
             wrongGuesses++;
             gameLogic.onWrongGuess();
+            view.onWrongGuess();
             currentInput = "";
             updateView();
         }
@@ -135,6 +137,7 @@ public class GameControllerImpl implements GameController {
         result.setRounds(correctGuesses);
         result.setMode(mode);
 
+        view.updateInput(currentInput + "_");
         view.updateExercise(currentExercise.toString());
         view.updateStats(result);
     }

@@ -30,6 +30,11 @@ public class SelectDifficultyActivity extends ActionBarActivity {
         this.mode = (Mode)o;
     }
 
+    @Click(R.id.btnVeryEasy)
+    public void startVeryEasyGame() {
+        startGame(Difficulty.VeryEasy);
+    }
+
     @Click(R.id.btnHard)
     public void startHardGame() {
         startGame(Difficulty.Medium);

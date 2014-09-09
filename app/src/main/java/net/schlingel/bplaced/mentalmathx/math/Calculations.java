@@ -91,10 +91,17 @@ public class Calculations {
     }
 
     public Term getProblem() {
-        Term t = createForResult(1 + rand.nextInt(50));
+        Term t = createForResult(randomResult());
         hardenProblem(t);
 
         return t;
+    }
+
+    private int randomResult() {
+        Operator op = rand.nextBoolean() ? Operator.Multiplication : Operator.Addition;
+        int result = op.apply(randomNumber(), randomNumber());
+
+        return result;
     }
 
     private int randomNumber() {

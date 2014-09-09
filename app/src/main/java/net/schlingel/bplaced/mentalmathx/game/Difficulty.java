@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by zombie on 27.06.14.
  */
 public enum Difficulty implements Serializable {
+    VeryEasy,
     Easy,
     Medium,
     Hard;

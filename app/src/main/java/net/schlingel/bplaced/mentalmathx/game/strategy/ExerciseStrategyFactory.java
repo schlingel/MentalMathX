@@ -14,6 +14,9 @@ public class ExerciseStrategyFactory {
         ExerciseStrategy strategy = null;
 
         switch (difficulty) {
+            case VeryEasy:
+                strategy = new OneOOneExerciseStrategy();
+                break;
             case Easy:
                 strategy = new EasyExerciseStrategy();
                 break;

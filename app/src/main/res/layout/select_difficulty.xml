@@ -24,8 +24,17 @@
         android:layout_height="match_parent">
 
         <Button
+            android:id="@+id/btnVeryEasy"
+            style="@style/MentalButton"
+            android:text="@string/btnVeryEasy"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
             android:id="@+id/btnEasy"
             style="@style/MentalButton"
+            android:layout_below="@id/btnVeryEasy"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/btnEasy"/>

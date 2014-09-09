@@ -28,4 +28,5 @@
     <string name="txtVwAboutApp">This app is Free Software and was published under the GPLv3. The source code is available under https://github.com/schlingel/MentalMathX. If you have paid for this app demand a refund and download the free variant.</string>
     <string name="txtVwAboutIcon">The app icon was made by Freepik (http://www.freepik) and is licensed under the CC-BY 3.0. It was published on http://www.flaticon.com</string>
     <string name="btnAbout">About</string>
+    <string name="btnVeryEasy">101</string>
 </resources>
